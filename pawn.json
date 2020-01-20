@@ -1,0 +1,17 @@
+{
+  "user": "TheVanitas",
+  "repo": "modprog",
+  "entry": "main.pwn",
+  "output": "main.amx",
+  "dependencies": ["sampctl/samp-stdlib", "pawn-lang/YSI-Includes@5.x"],
+  "runtime": {
+    "version": "0.3.7",
+    "mode": "server",
+    "echo": "-",
+    "rcon_password": "pw",
+    "port": 7777,
+    "hostname": "Modular Programming in Pawn",
+    "maxplayers": 50,
+    "language": ""
+  }
+}
