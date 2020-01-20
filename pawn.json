@@ -1,5 +1,5 @@
 {
-  "user": "TheVanitas",
+  "user": "TheManyula",
   "repo": "modprog",
   "entry": "main.pwn",
   "output": "main.amx",
@@ -8,9 +8,9 @@
     "version": "0.3.7",
     "mode": "server",
     "echo": "-",
-    "rcon_password": "pw",
+    "rcon_password": "modprog",
     "port": 7777,
-    "hostname": "Modular Programming in Pawn",
+    "hostname": "Modular Pawn",
     "maxplayers": 50,
     "language": ""
   }
