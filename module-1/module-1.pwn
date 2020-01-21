@@ -70,5 +70,9 @@ hook OnGameModeInit() {
     SetModuleInt(1337);
 
     PrintModuleInfo();
+
+    new str[SOMESTRING_LEN];
+    GetModuleString(str);
+    printf("'%s' contains %d times the letter '%c'.", str, CountChars(str, 'l'), 'l');
     return 1;
 }
