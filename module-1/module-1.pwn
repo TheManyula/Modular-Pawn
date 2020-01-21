@@ -73,7 +73,7 @@ hook OnGameModeInit() {
 
     new str[SOMESTRING_LEN];
     GetModuleString(str);
-    printf("'%s' contains %d times the letter '%c'.", str, CountChars(str, 'l'), 'l');
+    printf("'%s' contains %d times the letter '%c'.", str, CountChars(str, "l"), 'l');
 
     printf("The custom library function returned %d.", CustomLibRandomInt());
     return 1;

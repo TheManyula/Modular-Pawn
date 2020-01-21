@@ -7,10 +7,10 @@
 // files and so on.
 // All utility functions should be 'stock'.
 
-stock CountChars(const string[], ch = EOS) {
+stock CountChars(const string[], const ch[2]) {
     new i, found;
     while(string[i] != EOS) {
-        if(string[i] == ch) {
+        if(string[i] == ch[0]) {
             found++;
         }
         i++;
