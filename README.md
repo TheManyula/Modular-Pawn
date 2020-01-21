@@ -51,7 +51,7 @@ An example would be getter and setter functions to access data (static variables
 
 ## Prerequisites
 
-- [sampctl package manager](https://github.com/Southclaws/sampctl)
+- [sampctl package manager](https://github.com/Southclaws/sampctl) (For a list of libraries that support sampctl, check out the [Pawndex](https://packages.sampctl.com/).)
 - [Visual Studio Code](https://code.visualstudio.com/)
 
 ## Folder Structure
