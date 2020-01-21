@@ -1,18 +1,19 @@
 # Modular Programming in Pawn
 
-This project aims to show a modular approach to scripting in Pawn for SA:MP.
+This project aims to show a modular approach to scripting in Pawn for SA:MP/open.mp.
 
 ## Motivation
 
 When you started out scripting with Pawn, you probably didn't care much about code architecture as long as
 the code did what you wanted it to do. For the purpose of learning, you're actually encouraged to get your
 hands dirty writing some really shoddy code that you will look back on with shame one day in the future.
-At some point, you may have decided to write your own gamemode and chances are you've held onto putting
-everything into one single file simply because you were used to it or didn't know any better.
+At some point, you may have decided to write your own gamemode and started out by putting everything into
+one single file simply because you were used to it or didn't know any better. Chances are you are still doing
+that.
 
-As your gamemode kept growing in size, you have probably noticed that things were starting to get really messy.
-Adding new features, removing old ones or even fixing bugs became harder and harder. Luckily, there is a
-solution to this - and it's called modular programming.
+As your gamemode kept growing in size, you have probably noticed that things were starting to get messy.
+Adding new features, removing old ones or even fixing bugs became harder and harder. God forbid you have to
+work with someone else's spaghetti code. Luckily, there is a solution to this - and it's called modular programming.
 
 ## Concepts
 
@@ -52,17 +53,20 @@ An example would be getter and setter functions to access data (static variables
 ## Prerequisites
 
 - [sampctl package manager](https://github.com/Southclaws/sampctl) (For a list of libraries that support sampctl, check out the [Pawndex](https://packages.sampctl.com/).)
+  - [YSI Framework](https://github.com/pawn-lang/YSI-Includes/tree/5.x) (Get familier with using [y_hooks](https://github.com/pawn-lang/YSI-Includes/blob/5.x/YSI_Coding/y_hooks.md).)
 - [Visual Studio Code](https://code.visualstudio.com/)
 
 ## Folder Structure
 
 - `config/` contains global definitions/constants.
 - `dependencies/` is managed by sampctl and contains all dependencies.
-- `[module]/` is a folder for a module. It contains...
-  - a `[module].pwn` file for data and implementation logic, and
-  - a `i[module].pwn` file for forward declarations of functions meant to be accessible from other modules.
+- `filterscripts/` contains all filterscripts. Check out the [sampctl documentation](https://github.com/Southclaws/sampctl/wiki/Filterscripts) on how to add filterscripts to your gamemode.
+- `gamemodes` contains the `main.pwn` entry script which contains the main game loop and connects all modules in one place for compilation.
+- `libs/` contains all of your custom libraries that are not yet a sampctl package or that you don't want to publish. Be sure to install all necessary dependencies for these yourself as sampctl does not cover them!
+- `<module>/` is a folder for a module. It contains...
+  - a `<module>.pwn` file for data and implementation logic, and
+  - a `i<module>.pwn` file for forward declarations of functions meant to be accessible from other modules.
 - `utils/` contains utility or helper functions for common programming tasks.
-- `main.pwn` ist the entry script which contains the main game loop and connects all modules in one place for compilation.
 
 ### Entry Script
 
@@ -76,21 +80,24 @@ This makes sure that...
 #include <a_samp> // Includes all of SA-MP's natives.
 
 // Configuration
-#include "config/config.pwn" // Contains definitions for YSI or other feature toggles.
-#include "config/const.pwn" // Contains your gamemode-specific definitions, like colors, cardinal directions, etc.
+#include "../config/config.pwn" // Contains definitions for YSI or other feature toggles.
+#include "../config/const.pwn" // Contains your gamemode-specific definitions, like colors, cardinal directions, etc.
 
 // Utilities
-#include "utils/hooks.pwn" // Contains functions hooks.
-#include "utils/util.pwn" // Contains utility and helper functions.
+#include "../utils/hooks.pwn" // Contains functions hooks.
+#include "../utils/util.pwn" // Contains utility and helper functions.
 
 // Dependencies
 #include <YSI_Coding\y_hooks> // Must be included in the entry script and in EVERY single module that uses hooks.
 
+// Custom libraries
+#include "../libs/customlib.inc" // Contains all non-sampctl libraries.
+
 // Interfaces
-#include "module-1/imodule-1.pwn" // Contains forward declarations of modules.
+#include "../<modulefolder>/i<module>.pwn" // Contains forward declarations of modules.
 
 // Modules
-#include "module-1/module-1.pwn" // Contains data and implementation logic of module.
+#include "../<modulefolder>/<module>.pwn" // Contains data and implementation logic of module.
 
 main() {} // Ensures we can actually run our script.
 ```
@@ -100,6 +107,11 @@ main() {} // Ensures we can actually run our script.
 1. Create a project folder for your gamemode.
 2. Use the command line to navigate to your gamemode folder and type `sampctl package init`.
 3. Download YSI 5.x using `sampctl package install pawn-lang/YSI-Includes@5.x`.
-4. Create the entry script `main.pwn` according to the layout above.
-5. Create the rest of the folder structure, so `config` and `utils`.
-6. Create a new folder for a new module, create the [module].pwn and i[module].pwn files and start scripting!
+4. Create the `gamemodes` fold and put the entry script `main.pwn` inside.
+5. Create the rest of the folder structure, so `config`, `utils`, `libs` and `filterscripts`.
+6. Create a new folder for a new module, create the <module>.pwn and i<module>.pwn files and start scripting!
+
+## Best Practices
+
+- Create a separate module folder for every new module.
+- Access your data both inside the module itself as well as from other modules via functions (i.e. getters/setters).
