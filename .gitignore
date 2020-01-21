@@ -25,7 +25,7 @@ pawn.lock
 server.cfg
 
 # Plugins directory
-plugins/
+# plugins/
 
 # binaries
 *.exe
