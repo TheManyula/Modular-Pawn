@@ -3,6 +3,7 @@
   "repo": "Modular-Pawn",
   "entry": "gamemodes/main.pwn",
   "output": "gamemodes/main.amx",
+  "local": true,
   "dependencies": ["sampctl/samp-stdlib", "pawn-lang/YSI-Includes@5.x"],
   "runtime": {
     "version": "0.3.7",
