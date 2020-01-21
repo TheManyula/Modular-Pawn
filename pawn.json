@@ -1,8 +1,8 @@
 {
   "user": "TheManyula",
-  "repo": "modpawn",
-  "entry": "main.pwn",
-  "output": "main.amx",
+  "repo": "Modular-Pawn",
+  "entry": "gamemodes/main.pwn",
+  "output": "gamemodes/main.amx",
   "dependencies": ["sampctl/samp-stdlib", "pawn-lang/YSI-Includes@5.x"],
   "runtime": {
     "version": "0.3.7",
@@ -12,6 +12,7 @@
     "port": 7777,
     "hostname": "Modular Pawn",
     "maxplayers": 50,
+    "filterscripts": ["flymode"],
     "language": "",
     "mapname": "San Andreas",
     "weburl": "open.mp",
