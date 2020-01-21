@@ -61,13 +61,13 @@ An example would be getter and setter functions to access data (static variables
 - `config/` contains global definitions/constants.
 - `dependencies/` is managed by sampctl and contains all dependencies.
 - `filterscripts/` contains all filterscripts. Check out the [sampctl documentation](https://github.com/Southclaws/sampctl/wiki/Filterscripts) on how to add filterscripts to your gamemode.
-- `gamemodes` contains the `main.pwn` entry script which contains the main game loop and connects all modules in one place for compilation.
+- `gamemodes/` contains the `main.pwn` entry script which contains the main game loop and connects all modules in one place for compilation.
 - `libs/` contains all of your custom libraries that are not yet a sampctl package or that you don't want to publish. Be sure to install all necessary dependencies for these yourself as sampctl does not cover them!
 - `<module>/` is a folder for a module. It contains...
   - a `<module>.pwn` file for data and implementation logic, and
   - a `i<module>.pwn` file for forward declarations of functions meant to be accessible from other modules.
-- `plugins` contains all non-sampctl plugins.
-- `scriptfiles` contains files needed by plugins.
+- `plugins/` contains all non-sampctl plugins.
+- `scriptfiles/` contains files needed by plugins.
 - `utils/` contains utility or helper functions for common programming tasks.
 
 ### Entry Script
