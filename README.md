@@ -66,6 +66,8 @@ An example would be getter and setter functions to access data (static variables
 - `<module>/` is a folder for a module. It contains...
   - a `<module>.pwn` file for data and implementation logic, and
   - a `i<module>.pwn` file for forward declarations of functions meant to be accessible from other modules.
+- `plugins` contains all non-sampctl plugins.
+- `scriptfiles` contains files needed by plugins.
 - `utils/` contains utility or helper functions for common programming tasks.
 
 ### Entry Script
@@ -108,8 +110,8 @@ main() {} // Ensures we can actually run our script.
 2. Use the command line to navigate to your gamemode folder and type `sampctl package init`.
 3. Download YSI 5.x using `sampctl package install pawn-lang/YSI-Includes@5.x`.
 4. Create the `gamemodes` fold and put the entry script `main.pwn` inside.
-5. Create the rest of the folder structure, so `config`, `utils`, `libs` and `filterscripts`.
-6. Create a new folder for a new module, create the <module>.pwn and i<module>.pwn files and start scripting!
+5. Create the rest of the folder structure according to the layout above.
+6. Create a new folder for a new module, create the <module>.pwn and i<module>.pwn files into it and start scripting!
 
 ## Best Practices
 
