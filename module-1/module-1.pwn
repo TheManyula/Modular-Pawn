@@ -24,7 +24,7 @@ stock SetModuleString(const newString[]) {
     new oldString[SOMESTRING_LEN];
     GetModuleString(oldString, sizeof(oldString));
     format(moduleInfo[someString], sizeof(moduleInfo[someString]), newString);
-    // CallLocalFunction("OnSomeStringModified", "ss", oldString, newString);
+    CallLocalFunction("OnSomeStringModified", "as", oldString, newString);
     return 1;
 }
 
@@ -47,13 +47,20 @@ stock SetModuleInt(int) {
 static PrintModuleInfo() {
     new string[SOMESTRING_LEN];
     GetModuleString(string, sizeof(string));
-    printf("someString: %s\nsomeFloat: %.2f\nsomeInt: %d", string, GetModuleFloat(), GetModuleInt());
+    printf("someString: %a\nsomeFloat: %.2f\nsomeInt: %d", string, GetModuleFloat(), GetModuleInt());
 }
 
 // Implementation
 // This section contains the concrete implementation for this module inside of the callbacks.
 
 public OnSomeStringModified(const oldString[], const newString[]) {
+    // Custom callback which is called whenever SetModuleString is called.
+    // Can be hooked in other modules. This callback needs forwarding.
+    // Example hook:
+    // hook OnSomeStringModified(const oldString[], const newString[]) {
+    //     printf("hook: oldString: %s | newString: %s", oldString, newString);
+    //     return 1;
+    // }
     printf("public: oldString: %s | newString: %s", oldString, newString);
     return 1;
 }
