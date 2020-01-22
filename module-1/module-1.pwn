@@ -16,15 +16,16 @@ static moduleInfo[MODULE_1_DATA];
 // If you want a function to be used only inside of this module, use 'static'.
 // If you want a function to be accessible from other modules, use 'stock'.
 
-stock GetModuleString(str[SOMESTRING_LEN]) {
-    format(str, sizeof(moduleInfo[someString]), moduleInfo[someString]);
+stock GetModuleString(str[], size) {
+    format(str, size, moduleInfo[someString]);
 }
 
-stock SetModuleString(const newString[SOMESTRING_LEN]) {
+stock SetModuleString(const newString[]) {
     new oldString[SOMESTRING_LEN];
-    GetModuleString(oldString);
+    GetModuleString(oldString, sizeof(oldString));
     format(moduleInfo[someString], sizeof(moduleInfo[someString]), newString);
-    OnSomeStringModified(oldString, newString);
+    // CallLocalFunction("OnSomeStringModified", "ss", oldString, newString);
+    return 1;
 }
 
 stock Float:GetModuleFloat() {
@@ -45,7 +46,7 @@ stock SetModuleInt(int) {
 
 static PrintModuleInfo() {
     new string[SOMESTRING_LEN];
-    GetModuleString(string);
+    GetModuleString(string, sizeof(string));
     printf("someString: %s\nsomeFloat: %.2f\nsomeInt: %d", string, GetModuleFloat(), GetModuleInt());
 }
 
@@ -53,26 +54,19 @@ static PrintModuleInfo() {
 // This section contains the concrete implementation for this module inside of the callbacks.
 
 public OnSomeStringModified(const oldString[], const newString[]) {
-    // Custom callback which is called whenever SetModuleString() is called.
-    // This callback can be hooked in other modules. Needs to be forwarded.
-    // Example hook:
-    //
-    // hook OnSomeStringModified(const oldString[], const newString[]) {
-    //    printf("oldString: %s\nnewString: %s", oldString, newString);
-    //    return 1;
-    // }
+    printf("public: oldString: %s | newString: %s", oldString, newString);
     return 1;
 }
 
 hook OnGameModeInit() {
-    SetModuleString("Hello World");
+    SetModuleString("Hello World!");
     SetModuleFloat(3.41);
     SetModuleInt(1337);
 
     PrintModuleInfo();
 
     new str[SOMESTRING_LEN];
-    GetModuleString(str);
+    GetModuleString(str, sizeof(str));
     printf("'%s' contains %d times the letter '%c'.", str, CountChars(str, "l"), 'l');
 
     printf("The custom library function returned %d.", CustomLibRandomInt());

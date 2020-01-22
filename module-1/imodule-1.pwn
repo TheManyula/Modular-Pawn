@@ -2,8 +2,8 @@
 #define SOMESTRING_LEN 32
 
 // Forward all non-static functions of module-1.
-forward GetModuleString(str[SOMESTRING_LEN]);
-forward SetModuleString(const newString[SOMESTRING_LEN]);
+forward GetModuleString(str[], size);
+forward SetModuleString(const newString[]);
 forward Float:GetModuleFloat();
 forward SetModuleFloat(Float:float);
 forward GetModuleInt();
