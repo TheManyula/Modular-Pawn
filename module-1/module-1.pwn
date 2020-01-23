@@ -11,13 +11,14 @@ enum MODULE_1_DATA {
 
 static moduleInfo[MODULE_1_DATA];
 
-// Interface
+// API
 // This section contains functions for accessing or otherwise manipulating the data of this module.
-// If you want a function to be used only inside of this module, use 'static'.
-// If you want a function to be accessible from other modules, use 'stock'.
+// If you want a function to be used only inside of this module, use 'static' and camelCase.
+// If you want a function to be accessible from other modules, use 'stock' and PascalCase.
 
 stock GetModuleString(str[], size) {
-    format(str, size, moduleInfo[someString]);
+    strcat(str, moduleInfo[someString], size);
+    return 1;
 }
 
 stock SetModuleString(const newString[]) {
@@ -34,6 +35,7 @@ stock Float:GetModuleFloat() {
 
 stock SetModuleFloat(Float:float) {
     moduleInfo[someFloat] = float;
+    return 1;
 }
 
 stock GetModuleInt() {
@@ -42,12 +44,14 @@ stock GetModuleInt() {
 
 stock SetModuleInt(int) {
     moduleInfo[someInt] = int;
+    return 1;
 }
 
-static PrintModuleInfo() {
+static printModuleInfo() {
     new string[SOMESTRING_LEN];
     GetModuleString(string, sizeof(string));
     printf("someString: %a\nsomeFloat: %.2f\nsomeInt: %d", string, GetModuleFloat(), GetModuleInt());
+    return 1;
 }
 
 // Implementation
@@ -55,27 +59,29 @@ static PrintModuleInfo() {
 
 public OnSomeStringModified(const oldString[], const newString[]) {
     // Custom callback which is called whenever SetModuleString is called.
-    // Can be hooked in other modules. This callback needs forwarding.
-    // Example hook:
-    // hook OnSomeStringModified(const oldString[], const newString[]) {
-    //     printf("hook: oldString: %s | newString: %s", oldString, newString);
-    //     return 1;
-    // }
+    // Can be hooked in other modules.
     printf("public: oldString: %s | newString: %s", oldString, newString);
     return 1;
 }
 
 hook OnGameModeInit() {
+    print("Testing module interface:");
     SetModuleString("Hello World!");
     SetModuleFloat(3.41);
     SetModuleInt(1337);
 
-    PrintModuleInfo();
+    printModuleInfo();
+
+    print("\nTesting utility function from utils/util.pwn:");
 
     new str[SOMESTRING_LEN];
     GetModuleString(str, sizeof(str));
     printf("'%s' contains %d times the letter '%c'.", str, CountChars(str, "l"), 'l');
 
+    print("\nTesting custom library function from libs/customlib.inc:");
     printf("The custom library function returned %d.", CustomLibRandomInt());
+
+    print("\nTesting hooked function from utils/hooks.pwn:");
+    SetPlayerScore(0, 10);
     return 1;
 }

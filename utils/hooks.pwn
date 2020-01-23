@@ -6,5 +6,6 @@ hook function SetPlayerScore(playerid, score) {
 	new msg[128];
 	format(msg, sizeof(msg), "ID %d got %d score.", playerid, GetModuleInt());
 	SendClientMessageToAll(-1, msg);
+	print(msg);
 	return continue(playerid, score);
 }
