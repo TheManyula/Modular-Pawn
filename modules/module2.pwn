@@ -1,17 +1,6 @@
 // y_hooks needs to be included in ALL modules.
 #include <YSI_Coding\y_hooks>
 
-// Checking if module1's define already exists.
-#if defined _included_module1
-    // If _included_module1 has been defined already, end the input.
-    // Using #endinput breaks the inclusion progress of THIS include only.
-    // It's a Pawn directive which doesn't harm other includes.
-    #endinput
-#endif 
-
-// Now the key which has been checked as if it's defined or not has to be defined before anything.
-#define _included_module1
-
 // Now your include KEY define has been defined and you can include the external module.
 #include "../modules/module1.pwn"
 
@@ -37,7 +26,6 @@ hook OnGameModeInit() {
     Mod1_SetModuleString("Hello Module2!");
     Mod1_SetModuleFloat(2.71);
     Mod1_SetModuleInt(8080);
-
     Mod1_PrintModuleInfo();
 
     print("\nTesting utility function from utils/util.pwn:");
