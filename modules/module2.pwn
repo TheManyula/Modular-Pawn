@@ -1,13 +1,12 @@
 // y_hooks needs to be included in ALL modules.
 #include <YSI_Coding\y_hooks>
 
-// Checking if module1's define has been done already.
+// Checking if module1's define already exists.
 #if defined _included_module1
-    // If _included_module1 has been defined already. If so, end the input.
+    // If _included_module1 has been defined already, end the input.
     // Using #endinput breaks the inclusion progress of THIS include only.
     // It's a Pawn directive which doesn't harm other includes.
     #endinput
-// Ending the if statement which was started.
 #endif 
 
 // Now the key which has been checked as if it's defined or not has to be defined before anything.
