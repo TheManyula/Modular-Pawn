@@ -1,6 +1,17 @@
 // y_hooks needs to be included in ALL modules.
 #include <YSI_Coding\y_hooks>
 
+/*
+native Mod1_GetModuleString(str[], size);
+native Mod1_SetModuleString(const newString[]);
+native Float:Mod1_GetModuleFloat();
+native Mod1_SetModuleFloat(Float:float);
+native Mod1_GetModuleInt();
+native Mod1_SetModuleInt(int);
+native Mod1_PrintModuleInfo();
+native OnSomeStringModified(const oldString[], const newString[]);
+*/
+
 // Definitions and constants specific to module-1.
 #define SOMESTRING_LEN 32
 
