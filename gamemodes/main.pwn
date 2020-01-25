@@ -14,9 +14,6 @@
 // Custom libraries
 #include "../libs/customlib.inc"
 
-// Interfaces
-// #include "../module-1/imodule-1.pwn"
-
 // Modules
 #include "../modules/module1.pwn"
 #include "../modules/module2.pwn"
