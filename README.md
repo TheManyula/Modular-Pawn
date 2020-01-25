@@ -63,9 +63,7 @@ An example would be getter and setter functions to access data (static variables
 - `filterscripts/` contains all filterscripts. Check out the [sampctl documentation](https://github.com/Southclaws/sampctl/wiki/Filterscripts) on how to add filterscripts to your gamemode.
 - `gamemodes/` contains the `main.pwn` entry script which contains the main game loop and connects all modules in one place for compilation.
 - `libs/` contains all of your custom libraries that are not yet a sampctl package or that you don't want to publish. Be sure to install all necessary dependencies for these yourself as sampctl does not cover them!
-- `<module>/` is a folder for a module. It contains...
-  - a `<module>.pwn` file for data and implementation logic, and
-  - a `i<module>.pwn` file for forward declarations of functions meant to be accessible from other modules.
+- `modules/` is a folder for all modules.
 - `plugins/` contains all non-sampctl plugins.
 - `scriptfiles/` contains files needed by plugins.
 - `utils/` contains utility or helper functions for common programming tasks.
@@ -82,7 +80,6 @@ This makes sure that...
 #include <a_samp> // Includes all of SA-MP's natives.
 
 // Configuration
-#include "../config/config.pwn" // Contains definitions for YSI or other feature toggles.
 #include "../config/const.pwn" // Contains your gamemode-specific definitions, like colors, cardinal directions, etc.
 
 // Utilities
@@ -95,11 +92,8 @@ This makes sure that...
 // Custom libraries
 #include "../libs/customlib.inc" // Contains all non-sampctl libraries.
 
-// Interfaces
-#include "../<modulefolder>/i<module>.pwn" // Contains forward declarations of modules.
-
 // Modules
-#include "../<modulefolder>/<module>.pwn" // Contains data and implementation logic of module.
+#include "../modules/<module>.pwn" // Contains data and implementation logic of module.
 
 main() {} // Ensures we can actually run our script.
 ```
@@ -109,11 +103,15 @@ main() {} // Ensures we can actually run our script.
 1. Create a project folder for your gamemode.
 2. Use the command line to navigate to your gamemode folder and type `sampctl package init`.
 3. Download YSI 5.x using `sampctl package install pawn-lang/YSI-Includes@5.x`.
-4. Create the `gamemodes` fold and put the entry script `main.pwn` inside.
+4. Create the `gamemodes/` folder and put the entry script `main.pwn` inside. Don't forget to give it a `main() {}` function and `#include <a_samp>`!
 5. Create the rest of the folder structure according to the layout above.
-6. Create a new folder for a new module, create the <module>.pwn and i<module>.pwn files into it and start scripting!
+6. Create a new `.pwn` file in the `modules/` directory, put an `#include <YSI_Coding\y_hooks>` on top and start scripting!
 
 ## Best Practices
 
-- Create a separate module folder for every new module.
-- Access your data both inside the module itself as well as from other modules via functions (i.e. getters/setters).
+- If a module needs to access the external API of another module it must be included. Do this for EVERY module. The built-in include guard takes care of redundant inclusion for you if you use sampctl (managed by the `-Z+` flag).
+- Access your data both inside the module itself as well as from other modules via your internal API.
+- Use camelCase for your internal API and PascalCase for your external API.
+- Use variable and function prefixes to avoid duplicate names.
+- Keep a commented list of natives on top of the module.
+- Constants/defines for module-internal use should only be defined inside of the module. For global constants/defines, use the `config/const.pwn` or the build configuration found in your `pawn.json`.
