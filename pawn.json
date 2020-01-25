@@ -5,6 +5,13 @@
   "output": "gamemodes/main.amx",
   "local": true,
   "dependencies": ["sampctl/samp-stdlib", "pawn-lang/YSI-Includes@5.x"],
+  "build": {
+    "constants": {
+      "MAX_PLAYERS": "250",
+      "YSI_NO_OPTIMISATION_MESSAGE": "",
+      "YSI_NO_VERSION_CHECK": ""
+    }
+  },
   "runtime": {
     "version": "0.3.7",
     "mode": "server",

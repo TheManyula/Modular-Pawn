@@ -1,7 +1,6 @@
 #include <a_samp>
 
 // Configuration
-#include "../config/config.pwn"
 #include "../config/const.pwn"
 
 // Utilities
