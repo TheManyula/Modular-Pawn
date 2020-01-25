@@ -1,7 +1,7 @@
 // y_hooks needs to be included in ALL modules.
 #include <YSI_Coding\y_hooks>
 
-// Now your include KEY define has been defined and you can include the external module.
+// Module2 makes use of Module1's external API, so include it.
 #include "../modules/module1.pwn"
 
 // Data
