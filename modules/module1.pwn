@@ -1,12 +1,15 @@
 // y_hooks needs to be included in ALL modules.
 #include <YSI_Coding\y_hooks>
 
+// Definitions and constants specific to module-1.
+#define SOMESTRING_LEN 32
+
 // Data
 // This section is for module-internal data. Make sure to make the accessor variable 'static'.
 enum MODULE_1_DATA {
-    someString[SOMESTRING_LEN],
-    someInt,
-    Float:someFloat
+    mod1_someString[SOMESTRING_LEN],
+    mod1_someInt,
+    Float:mod1_someFloat
 }
 
 static moduleInfo[MODULE_1_DATA];
@@ -16,47 +19,48 @@ static moduleInfo[MODULE_1_DATA];
 // If you want a function to be used only inside of this module, use 'static' and camelCase.
 // If you want a function to be accessible from other modules, use 'stock' and PascalCase.
 
-stock GetModuleString(str[], size) {
-    strcat(str, moduleInfo[someString], size);
+stock Mod1_GetModuleString(str[], size) {
+    strcat(str, moduleInfo[mod1_someString], size);
     return 1;
 }
 
-stock SetModuleString(const newString[]) {
+stock Mod1_SetModuleString(const newString[]) {
     new oldString[SOMESTRING_LEN];
-    GetModuleString(oldString, sizeof(oldString));
-    format(moduleInfo[someString], sizeof(moduleInfo[someString]), newString);
+    Mod1_GetModuleString(oldString, sizeof(oldString));
+    format(moduleInfo[mod1_someString], sizeof(moduleInfo[mod1_someString]), newString);
     CallLocalFunction("OnSomeStringModified", "as", oldString, newString);
     return 1;
 }
 
-stock Float:GetModuleFloat() {
-    return moduleInfo[someFloat];
+stock Float:Mod1_GetModuleFloat() {
+    return moduleInfo[mod1_someFloat];
 }
 
-stock SetModuleFloat(Float:float) {
-    moduleInfo[someFloat] = float;
+stock Mod1_SetModuleFloat(Float:float) {
+    moduleInfo[mod1_someFloat] = float;
     return 1;
 }
 
-stock GetModuleInt() {
-    return moduleInfo[someInt];
+stock Mod1_GetModuleInt() {
+    return moduleInfo[mod1_someInt];
 }
 
-stock SetModuleInt(int) {
-    moduleInfo[someInt] = int;
+stock Mod1_SetModuleInt(int) {
+    moduleInfo[mod1_someInt] = int;
     return 1;
 }
 
-static printModuleInfo() {
+stock Mod1_PrintModuleInfo() {
     new string[SOMESTRING_LEN];
-    GetModuleString(string, sizeof(string));
-    printf("someString: %a\nsomeFloat: %.2f\nsomeInt: %d", string, GetModuleFloat(), GetModuleInt());
+    Mod1_GetModuleString(string, sizeof(string));
+    printf("mod1_someString: %s\nmod1_someFloat: %.2f\nmod1_someInt: %d", string, Mod1_GetModuleFloat(), Mod1_GetModuleInt());
     return 1;
 }
 
 // Implementation
 // This section contains the concrete implementation for this module inside of the callbacks.
 
+forward OnSomeStringModified(const oldString[], const newString[]);
 public OnSomeStringModified(const oldString[], const newString[]) {
     // Custom callback which is called whenever SetModuleString is called.
     // Can be hooked in other modules.
@@ -65,17 +69,18 @@ public OnSomeStringModified(const oldString[], const newString[]) {
 }
 
 hook OnGameModeInit() {
+    print("---------------------------------------------------------------\n");
+    print("[module1]\n");
     print("Testing module interface:");
-    SetModuleString("Hello World!");
-    SetModuleFloat(3.41);
-    SetModuleInt(1337);
-
-    printModuleInfo();
+    Mod1_SetModuleString("Hello Module1!");
+    Mod1_SetModuleFloat(3.41);
+    Mod1_SetModuleInt(1337);
+    Mod1_PrintModuleInfo();
 
     print("\nTesting utility function from utils/util.pwn:");
 
     new str[SOMESTRING_LEN];
-    GetModuleString(str, sizeof(str));
+    Mod1_GetModuleString(str, sizeof(str));
     printf("'%s' contains %d times the letter '%c'.", str, CountChars(str, "l"), 'l');
 
     print("\nTesting custom library function from libs/customlib.inc:");

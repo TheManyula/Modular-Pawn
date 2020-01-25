@@ -15,9 +15,10 @@
 #include "../libs/customlib.inc"
 
 // Interfaces
-#include "../module-1/imodule-1.pwn"
+// #include "../module-1/imodule-1.pwn"
 
 // Modules
-#include "../module-1/module-1.pwn"
+#include "../modules/module1.pwn"
+#include "../modules/module2.pwn"
 
 main() {}
