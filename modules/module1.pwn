@@ -17,6 +17,7 @@ native OnSomeStringModified(const oldString[], const newString[]);
 
 // Data
 // This section is for module-internal data. Make sure to make the accessor variable 'static'.
+
 enum MODULE_1_DATA {
     mod1_someString[SOMESTRING_LEN],
     mod1_someInt,
