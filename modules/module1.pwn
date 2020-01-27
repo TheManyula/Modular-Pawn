@@ -2,12 +2,12 @@
 #include <YSI_Coding\y_hooks>
 
 /*
-native Mod1_GetModuleString(str[], size);
+native Mod1_GetModuleString(string[], size);
 native Mod1_SetModuleString(const newString[]);
 native Float:Mod1_GetModuleFloat();
 native Mod1_SetModuleFloat(Float:float);
 native Mod1_GetModuleInt();
-native Mod1_SetModuleInt(int);
+native Mod1_SetModuleInt(integer);
 native Mod1_PrintModuleInfo();
 native OnSomeStringModified(const oldString[], const newString[]);
 */
@@ -31,8 +31,8 @@ static moduleInfo[MODULE_1_DATA];
 // If you want a function to be used only inside of this module, use 'static' and camelCase.
 // If you want a function to be accessible from other modules, use 'stock' and PascalCase.
 
-stock Mod1_GetModuleString(str[], size) {
-    strcat(str, moduleInfo[mod1_someString], size);
+stock Mod1_GetModuleString(string[], size) {
+    strcat(string, moduleInfo[mod1_someString], size);
     return 1;
 }
 
@@ -57,8 +57,8 @@ stock Mod1_GetModuleInt() {
     return moduleInfo[mod1_someInt];
 }
 
-stock Mod1_SetModuleInt(int) {
-    moduleInfo[mod1_someInt] = int;
+stock Mod1_SetModuleInt(integer) {
+    moduleInfo[mod1_someInt] = integer;
     return 1;
 }
 
@@ -91,9 +91,9 @@ hook OnGameModeInit() {
 
     print("\nTesting utility function from utils/util.pwn:");
 
-    new str[SOMESTRING_LEN];
-    Mod1_GetModuleString(str, sizeof(str));
-    printf("'%s' contains %d times the letter '%c'.", str, CountChars(str, "l"), 'l');
+    new string[SOMESTRING_LEN];
+    Mod1_GetModuleString(string, sizeof(string));
+    printf("'%s' contains %d times the letter '%c'.", string, CountChars(string, "l"), 'l');
 
     print("\nTesting custom library function from libs/customlib.inc:");
     printf("The custom library function returned %d.", CustomLibRandomInt());
