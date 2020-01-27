@@ -114,5 +114,4 @@ main() {} // Ensures we can actually run our script.
 - Access your data both inside the module itself as well as from other modules via your internal API.
 - Use camelCase for your internal API and PascalCase for your external API.
 - Use variable and function prefixes to avoid duplicate names.
-- Keep a commented list of natives on top of the module.
 - Constants/defines for module-internal use should only be defined inside of the module. For global constants/defines, use the `config/const.pwn` or the build configuration found in your `pawn.json`.
