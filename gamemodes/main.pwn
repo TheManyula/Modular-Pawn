@@ -11,7 +11,7 @@
 #include <YSI_Coding\y_hooks>
 
 // Custom libraries
-#include "../libs/customlib.inc"
+#include "customlib.inc"
 
 // Modules
 #include "../modules/module1.pwn"

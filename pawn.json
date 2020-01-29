@@ -6,6 +6,7 @@
   "local": true,
   "dependencies": ["sampctl/samp-stdlib", "pawn-lang/YSI-Includes@5.x"],
   "build": {
+    "includes": ["libs"],
     "constants": {
       "MAX_PLAYERS": "50",
       "YSI_NO_OPTIMISATION_MESSAGE": "",
