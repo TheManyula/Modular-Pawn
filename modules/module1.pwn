@@ -17,7 +17,7 @@ static moduleInfo[MODULE_1_DATA];
 
 // API
 // This section contains functions for accessing or otherwise manipulating the data of this module.
-// If you want a function to be used only inside of this module, use 'static' and camelCase.
+// If you want a function to be used only inside of this module, use 'static (stock)' and camelCase.
 // If you want a function to be accessible from other modules, use 'stock' and PascalCase.
 
 stock Mod1_GetModuleString(string[], size) {
