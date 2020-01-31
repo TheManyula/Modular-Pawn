@@ -21,18 +21,21 @@
 
 hook OnGameModeInit() {
     print("---------------------------------------------------------------\n");
-    print("[module2]\n");
-    print("Testing module interface:");
+    print("[module2]");
+    print("\nTesting module interface:");
     Mod1_SetModuleString("Hello Module2!");
     Mod1_SetModuleFloat(2.71);
     Mod1_SetModuleInt(8080);
-    Mod1_PrintModuleInfo();
+
+    new mod1_str[SOMESTRING_LEN];
+    Mod1_GetModuleString(mod1_str, sizeof(mod1_str));
+    new Float:mod1_float = Mod1_GetModuleFloat();
+    new mod1_int = Mod1_GetModuleInt();
+
+    printf("mod1_someString: %s\nmod1_someFloat: %.2f\nmod1_someInt: %d", mod1_str, mod1_float, mod1_int);
 
     print("\nTesting utility function from utils/util.pwn:");
-
-    new str[SOMESTRING_LEN];
-    Mod1_GetModuleString(str, sizeof(str));
-    printf("'%s' contains %d times the letter '%c'.", str, CountChars(str, "e"), 'e');
+    printf("'%s' contains %d times the letter '%c'.", mod1_str, CountChars(mod1_str, "e"), 'e');
 
     print("\nTesting custom library function from libs/customlib.inc:");
     printf("The custom library function returned %d.", CustomLibRandomInt());
@@ -43,6 +46,6 @@ hook OnGameModeInit() {
 }
 
 hook OnSomeStringModified(const oldString[], const newString[]) {
-    print("Hooked OnSomeStringModified in module2.");
+    print("-> Hooked OnSomeStringModified in module2.");
     return 1;
 }

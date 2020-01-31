@@ -15,10 +15,11 @@ enum MODULE_1_DATA {
 
 static moduleInfo[MODULE_1_DATA];
 
-// API
-// This section contains functions for accessing or otherwise manipulating the data of this module.
-// If you want a function to be used only inside of this module, use 'static (stock)' and camelCase.
-// If you want a function to be accessible from other modules, use 'stock' and PascalCase.
+// This next section contains functions for accessing or otherwise manipulating the data of this module.
+// The API is divided into an external and an internal API.
+
+// External API
+// Functions accessible from other modules. Use 'stock' and PascalCase.
 
 stock Mod1_GetModuleString(string[], size) {
     strcat(string, moduleInfo[mod1_someString], size);
@@ -51,7 +52,10 @@ stock Mod1_SetModuleInt(integer) {
     return 1;
 }
 
-stock Mod1_PrintModuleInfo() {
+// Internal API
+// Functions to be used only inside of this module. Use 'static (stock)' and camelCase.
+
+static stock printModuleInfo() {
     new string[SOMESTRING_LEN];
     Mod1_GetModuleString(string, sizeof(string));
     printf("mod1_someString: %s\nmod1_someFloat: %.2f\nmod1_someInt: %d", string, Mod1_GetModuleFloat(), Mod1_GetModuleInt());
@@ -71,15 +75,14 @@ public OnSomeStringModified(const oldString[], const newString[]) {
 
 hook OnGameModeInit() {
     print("---------------------------------------------------------------\n");
-    print("[module1]\n");
-    print("Testing module interface:");
+    print("[module1]");
+    print("\nTesting module interface:");
     Mod1_SetModuleString("Hello Module1!");
     Mod1_SetModuleFloat(3.41);
     Mod1_SetModuleInt(1337);
-    Mod1_PrintModuleInfo();
+    printModuleInfo();
 
     print("\nTesting utility function from utils/util.pwn:");
-
     new string[SOMESTRING_LEN];
     Mod1_GetModuleString(string, sizeof(string));
     printf("'%s' contains %d times the letter '%c'.", string, CountChars(string, "l"), 'l');
