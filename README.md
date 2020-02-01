@@ -1,7 +1,7 @@
 # Modular Programming in Pawn
 
 This project aims to show a modular approach to scripting in Pawn for SA:MP/open.mp.
-For a detailed documentation, please check out the wiki.
+For a detailed documentation, please check out the [wiki](https://github.com/TheManyula/Modular-Pawn/wiki).
 
 ## Prerequisites
 
