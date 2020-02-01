@@ -1,8 +1,8 @@
-// y_hooks needs to be included in ALL modules.
-#include <YSI_Coding\y_hooks>
-
 // Module2 makes use of Module1's external API, so include it.
 #include "../modules/module1.pwn"
+
+// y_hooks needs to be included in ALL modules.
+#include <YSI_Coding\y_hooks>
 
 // Data
 // This section is for module-internal data. Make sure to make the accessor variable 'static'.
